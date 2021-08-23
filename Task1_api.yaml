@@ -1,0 +1,131 @@
+---
+swagger: "2.0"
+info:
+  description: Task 1
+  version: 1.0.0
+  title: Connection details
+host: virtserver.swaggerhub.com
+basePath: /Trial219/Trial/1.0.0
+schemes:
+- https
+paths:
+  /credentials/list:
+    get:
+      summary: Fetches all connections
+      operationId: getAllConnections
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successfully returned credentials
+  /credentials/find:
+    get:
+      summary: Fetch connection by name
+      description: |
+        Fetches connection by primary key 'name' in credentials database
+      operationId: getConnection
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successfully returned a required credential
+  /credentials/save:
+    post:
+      summary: Save new connection
+      description: |
+        Saves a connection if no such 'name' is present
+      operationId: saveConnection
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      - name: hostname
+        in: query
+        description: host of a database
+        required: true
+        type: string
+      - name: port
+        in: query
+        description: port of a database
+        required: true
+        type: string
+      - name: databaseName
+        in: query
+        description: database name (aka schema)
+        required: true
+        type: string
+      - name: username
+        in: query
+        description: user name to access the database
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: password name to access the database
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successfully saved required credentail
+        "500":
+          description: credentails with key 'name' already exists
+  /credentials/update:
+    post:
+      summary: Update existing connection
+      description: |
+        Updates connection with given name with all provided values
+      operationId: updateConnection
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      - name: hostname
+        in: query
+        description: host of a database
+        required: true
+        type: string
+      - name: port
+        in: query
+        description: port of a database
+        required: true
+        type: string
+      - name: databaseName
+        in: query
+        description: database name (aka schema)
+        required: true
+        type: string
+      - name: username
+        in: query
+        description: user name to access the database
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: password name to access the database
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successfully updated required credentail
+        "500":
+          description: credentails with key 'name' doesn't exists
+definitions: {}

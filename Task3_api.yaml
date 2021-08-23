@@ -1,0 +1,48 @@
+---
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Task 2 (Browsing data)
+schemes:
+- https
+paths:
+  /statistics/columns:
+    get:
+      summary: Produces statistics about each column (min, max, avg, median)
+      operationId: getColumns
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      - name: tableName
+        in: query
+        description: table name to get statistics about
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successfully returned statistics
+        "500":
+          description: internal error
+  /statistics/tables:
+    get:
+      summary: Produces statistics about each table (number of records, number of attributes)
+      operationId: getTables
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successfully returned statistics
+        "500":
+          description: internal error
+definitions: {}

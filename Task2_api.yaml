@@ -2,27 +2,35 @@
 swagger: "2.0"
 info:
   version: 1.0.0
-  title: Task 2 (Browsing data)
+  title: Task 3 (Bonus)
 schemes:
 - https
 paths:
-  /schemas:
+  /statistics/columns:
     get:
-      summary: Fetches all schemas (databases)
-      operationId: getSchemas
+      summary: Produces statistics about each column (min, max, avg, median)
+      operationId: getColumns
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - name: name
+        in: query
+        description: primary key 'name' in credentials database
+        required: true
+        type: string
+      - name: tableName
+        in: query
+        description: table name to get statistics about
+        required: true
+        type: string
       responses:
         "200":
-          description: successfully returned schemas
+          description: successfully returned statistics
         "500":
           description: internal error
-  /tables:
+  /statistics/tables:
     get:
-      summary: Fetch tables by name
-      description: |
-        Fetches tables by primary key 'name'
+      summary: Produces statistics about each table (number of records, number of attributes)
       operationId: getTables
       produces:
       - application/json
@@ -34,72 +42,7 @@ paths:
         type: string
       responses:
         "200":
-          description: successfully returned a required credential
-        "500":
-          description: internal error
-  /columns:
-    post:
-      summary: Fetch all columns from a given table
-      description: |
-        Saves a connection if no such 'name' is present
-      operationId: saveConnection
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: name
-        in: query
-        description: primary key 'name' in credentials database
-        required: true
-        type: string
-      - name: tableName
-        in: query
-        description: name of a table to get all columns from
-        required: true
-        type: string
-      responses:
-        "200":
-          description: successfully returned all columns
-        "500":
-          description: internal error
-  /preview:
-    post:
-      summary: Preview the data
-      description: |
-        Updates connection with given name with all provided values
-      operationId: updateConnection
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: name
-        in: query
-        description: primary key 'name' in credentials database
-        required: true
-        type: string
-      - name: tableName
-        in: query
-        description: name of a table to preview the data from
-        required: true
-        type: string
-      - name: limit
-        in: query
-        description: max number of rows to return
-        required: false
-        default: 10
-        type: number
-      - name: offset
-        in: query
-        description: number of the first row
-        minimum: 0
-        required: false
-        default: 0
-        type: number
-      responses:
-        "200":
-          description: successfully previewed the data
+          description: successfully returned statistics
         "500":
           description: internal error
 definitions: {}
